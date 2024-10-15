@@ -128,3 +128,45 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Config logs
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "custom": {
+            "format": "%(levelname)s|%(module)s|L%(lineno)d %(asctime)s: %(message)s",
+            "datefmt": "%Y-%m-%d %H:%M:%S",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "custom",
+        },
+        "file": {
+            "class": "logging.handlers.RotatingFileHandler",
+              "level": "INFO",
+              "formatter": "custom",
+              "filename": "logs/goods_scrapper.log",
+              "maxBytes": 10000000,
+              "backupCount": 10
+        }
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+    "django.db.backends": {
+        "handlers": ["console"],
+        "level": "ERROR",
+    },
+    "rest_framework": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+    "django": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+}
