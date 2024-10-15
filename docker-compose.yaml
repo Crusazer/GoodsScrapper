@@ -1,6 +1,8 @@
 services:
   goods_scrapper:
-    build: ./src
+    build:
+      context: ./src
+      dockerfile: Dockerfile
     container_name: goods_scrapper
     restart: always
     command: ./start.sh
@@ -12,6 +14,21 @@ services:
       - ./.env
     depends_on:
       - goods_scrapper_db
+      - goods_scrappers_redis
+
+  goods_scrapper_celery:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    container_name: goods_scrapper_celery
+    env_file:
+      - ./.env
+    volumes:
+      - ./src:/app
+    command: celery -A general worker --loglevel=info
+    depends_on:
+      - goods_scrapper_db
+      - goods_scrappers_redis
 
   goods_scrapper_db:
     image: postgres

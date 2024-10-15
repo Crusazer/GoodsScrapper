@@ -27,6 +27,12 @@ DEBUG = os.getenv('DEBUG', 'True').lower() in ('true', '1')
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1").split(" ")
 
+REDIS_HOST = os.getenv("REDIS_HOST", default="localhost")
+REDIS_PORT = 6379
+REDIS_PASSWORD = os.getenv("REDIS_PASSWORD", default="")
+REDIS_DEFAULT_DB = 0
+CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DEFAULT_DB}'
+CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DEFAULT_DB}'
 
 # Application definition
 
@@ -39,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     'rest_framework',
+    'wildberries',
 ]
 
 MIDDLEWARE = [
