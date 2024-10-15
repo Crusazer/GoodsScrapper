@@ -11,7 +11,7 @@ GoodsScrapper — проект на Python и Django, предназначенн
 2. Клонируйте репозиторий:
 
    ```bash
-   git clone <URL_ВАШЕГО_РЕПОЗИТОРИЯ>
+   git clone https://github.com/Crusazer/GoodsScrapper.git
    cd GoodsScrapper
     ```
 3. Выполните команду для сборки и запуска контейнеров:
