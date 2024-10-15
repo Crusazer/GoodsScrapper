@@ -1,0 +1,29 @@
+services:
+  goods_scrapper:
+    build: .
+    container_name: goods_scrapper
+    restart: always
+    command: ./start.sh
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env
+    depends_on:
+      - goods_scrapper_db
+
+  goods_scrapper_db:
+    image: postgres
+    container_name: goods_scrapper_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: goods_scrapper
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+
+volumes:
+  postgres_data:

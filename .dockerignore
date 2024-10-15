@@ -1,0 +1,6 @@
+.env
+.env_example
+.venv
+.idea
+**/__pycache__
+*.pyc
