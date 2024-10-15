@@ -1,5 +1,6 @@
+
 up:
-	chmod +x start.sh
+	chmod +x ./src/start.sh
 	docker compose up
 
 build:

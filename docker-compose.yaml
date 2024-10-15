@@ -1,11 +1,11 @@
 services:
   goods_scrapper:
-    build: .
+    build: ./src
     container_name: goods_scrapper
     restart: always
     command: ./start.sh
     volumes:
-      - .:/app
+      - ./src:/app
     ports:
       - 8000:8000
     env_file:
@@ -17,7 +17,7 @@ services:
     image: postgres
     container_name: goods_scrapper_db
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - ./volumes/postgres_data:/var/lib/postgresql/data/
     environment:
       POSTGRES_DB: goods_scrapper
       POSTGRES_USER: postgres
@@ -25,5 +25,18 @@ services:
     ports:
       - 5432:5432
 
+  goods_scrappers_redis:
+    image: redis:latest
+    container_name: goods_scrappers_redis
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: redis
+    volumes:
+      - ./volumes/redis_data:/var/lib/redis/data/
+    ports:
+      - "6379:6379"
+
 volumes:
   postgres_data:
+  redis_data:

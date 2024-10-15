@@ -9,4 +9,4 @@ COPY . /app
 RUN chmod a+x /app/start.sh
 EXPOSE 8000
 
-CMD /app/auth_start.sh
+CMD /app/start.sh
